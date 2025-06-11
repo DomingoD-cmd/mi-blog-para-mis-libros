@@ -1,0 +1,30 @@
+            renderBooks();
+          }
+        }
+      });
+    });
+    // Render función para los libros en sección Historias
+    function renderBooks() {
+      const list = document.querySelector('#stories .book-list');
+      list.innerHTML = '';
+      books.forEach(book => {
+        const li = document.createElement('li');
+        li.className = 'book-item';
+        li.tabIndex = 0;
+        li.setAttribute('role','button');
+        li.setAttribute('aria-label', 'Abrir libro ' + book.title);
+        li.innerHTML = `
+          <img src="${book.cover}" alt="${book.coverAlt}" class="book-cover" />
+          <div class="book-title">${book.title}</div>
+        `;
+        // Si quieres agregar funcionalidad para abrir cada libro, se puede ampliar aquí
+        list.appendChild(li);
+      });
+    }
+    // Al cargar la página iniciar en Home y render libros en Historias solo cuando se abra
+    window.addEventListener('DOMContentLoaded', () => {
+      renderBooks();
+    });
+  </script>
+</body>
+</html>
