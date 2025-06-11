@@ -1,8 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letrarium - Tu Espacio Literario</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset y base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #f8f8f8; /* Fondo blanco marfil */
+      color: #333; /* Texto gris oscuro */
+      font-family: 'Lato', sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+    }
+    a {
+      color: #00796b; /* Azul petróleo */
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    a:hover, a:focus {
+      color: #004d40; /* Azul más oscuro */
+      outline: none;
+    }
+    /* Contenedor principal */
+    .container {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    /* Header */
+    header {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      background: #fff; /* Fondo blanco */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      user-select: none;
+    }
+    /* Barra de navegación */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.75rem 0;
+      user-select: none;
+    }
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: #00796b;
+    }
+    nav a.active,
+    nav a:hover,
+    nav a:focus {
+      background-color: #00796b;
+      color: #fff;
+      outline: none;
+    }
+    /* Contenido de secciones */
+    section {
+      background: #fff; /* Fondo blanco */
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    section.active {
+      display: flex;
+    }
+    /* Lista de libros para sección Historias */
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .book-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: box-shadow 0.25s ease;
+    }
+    .book-item:hover,
+    .book-item:focus {
+      box-shadow: 0 4px 12px rgb(0 121 109 / 0.3);
+      outline: none;
+    }
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-bottom: 2px solid #00796b;
+    }
+    .book-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-align: center;
+      color: #004d40;
+      padding: 0.75rem 0.5rem;
+      flex-grow: 1;
+    }
+    /* Multimedia sección texto */
+    #multimedia p {
+      margin: 0 0 1rem;
+    }
+    /* Sobre mí imagen */
+    #about-me img {
+      max-width: 150px;
+      border-radius: 50%;
+      margin-top: 1rem;
+      align-self: center;
+    }
+    /* Blog */
+    #blog p {
+      margin: 0 0 1rem;
+    }
+    /* Contacto */
+    #contact form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #contact input[type="email"] {
+      flex-grow: 1;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    #contact button {
+      background: #00796b;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #contact button:hover,
+    #contact button:focus {
+      background: #004d40;
+      outline: none;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      user-select: none;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav {
+        gap: 1rem;
+      }
+      .book-list {
+        grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+      }
+      .book-title {
+        font-size: 1rem;
+        padding: 0.5rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Letrarium</h1>
+    <p>Tu espacio literario para explorar y compartir historias.</p>
+  </header>
+  
+  <nav role="navigation" aria-label="Menu principal">
+    <a href="#" id="nav-home" class="active" tabindex="0" aria-current="page">Inicio</a>
+    <a href="#" id="nav-stories" tabindex="0">Historias / Libros</a>
+    <a href="#" id="nav-multimedia" tabindex="0">Multimedia</a>
+    <a href="#" id="nav-about-me" tabindex="0">Sobre mí</a>
+    <a href="#" id="nav-blog" tabindex="0">Blog del Autor</a>
+    <a href="#" id="nav-contact" tabindex="0">Contacto / Suscripción</a>
+  </nav>
+
+  <main class="container" role="main">
+    <section id="home" class="active" aria-label="Sección de inicio">
+      <h2>Bienvenido a Letrarium</h2>
+      <p>Un lugar para descubrir historias y compartir la pasión por la literatura. Explora mis libros y acompáñame en este viaje creativo.</p>
+      <a href="#" id="btn-latest-story" class="button" aria-label="Ir a la última historia publicada">Última historia publicada</a>
+    </section>
+
+    <section id="stories" aria-label="Sección de Historias y Libros">
+      <h2>Historias / Libros</h2>
+      <ul class="book-list" tabindex="0" aria-live="polite" aria-relevant="additions removals"></ul>
+    </section>
+
+    <section id="multimedia" aria-label="Sección Multimedia">
+      <h2>Multimedia</h2>
+      <p>Explora entrevistas, avances y lecturas en voz alta de mis historias. También puedes disfrutar de playlists que acompañan mis relatos.</p>
+      <a href="#" class="button">Ver Multimedia</a>
+    </section>
+
+    <section id="about-me" aria-label="Sección Sobre mí">
+      <h2>Sobre mí</h2>
+      <p>Soy un(a) autor(a) apasionado(a) por contar historias que inspiran y conectan. Mi estilo se basa en la exploración de emociones y experiencias humanas. Me inspiro en la naturaleza, la música y las historias de la vida cotidiana.</p>
+      <img src="https://placehold.co/150x150/png?text=Foto+del+autor" alt="Foto del autor" />
+    </section>
+
+    <section id="blog" aria-label="Sección Blog del Autor">
+      <h2>Blog del Autor</h2>
+      <p>En este espacio, compartiré mis avances, reflexiones y las ideas detrás de mis capítulos. ¡Espero que te unas a la conversación!</p>
+      <a href="#" class="button">Leer el Blog</a>
+    </section>
+
+    <section id="contact" aria-label="Sección Contacto y Suscripción">
+      <h2>Contacto / Suscripción</h2>
+      <p>Suscríbete para recibir novedades sobre mis historias y proyectos. También puedes escribirme directamente.</p>
+      <form>
+        <input type="email" placeholder="Tu email" aria-label="Correo electrónico" required />
+        <button type="submit">Suscribirse</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Letrarium - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Datos simulados libros con portada y título
+    const books = [
+      {
+        id: 1,
+        title: "El Legado del Viento",
+        cover: "https://placehold.co/300x400/png?text=El+Legado+del+Viento",
+        coverAlt: "Portada libro El Legado del Viento"
+      },
+      {
+        id: 2,
+        title: "Sombras y Luz",
+        cover: "https://placehold.co/300x400/png?text=Sombras+y+Luz",
+        coverAlt: "Portada libro Sombras y Luz"
+      }
+    ];
+
+    // Navegación entre secciones
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('main section');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        // Quitar active a links y sections
+        navLinks.forEach(l => {
+          l.classList.remove('active');
+          l.removeAttribute('aria-current');
+        });
+        sections.forEach(sec => sec.classList.remove('active'));
+        // Añadir active al link clicado
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+        // Mostrar sección correspondiente
+        const targetId = link.id.replace('nav-', '');
+        const targetSection = document.getElementById(targetId);
+        if(targetSection) {
+          targetSection.classList.add('active');
+          if(targetId === 'stories') {
             renderBooks();
           }
         }
       });
     });
+
     // Render función para los libros en sección Historias
     function renderBooks() {
       const list = document.querySelector('#stories .book-list');
@@ -21,6 +322,7 @@
         list.appendChild(li);
       });
     }
+
     // Al cargar la página iniciar en Home y render libros en Historias solo cuando se abra
     window.addEventListener('DOMContentLoaded', () => {
       renderBooks();
@@ -28,3 +330,4 @@
   </script>
 </body>
 </html>
+
